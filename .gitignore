@@ -1,0 +1,9 @@
+/vendor
+/.idea
+Homestead.json
+Homestead.yaml
+.env
+.env.staging
+.env.production
+/node_modules
+/.serverless
