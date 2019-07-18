@@ -1,4 +1,6 @@
 <?php
+use Illuminate\Http\Request;
+use App\Actions\{VerifyPassword, DecryptContent};
 
 /*
 |--------------------------------------------------------------------------
@@ -11,4 +13,25 @@
 |
 */
 
-//$router->get('/foo/bar', 'FooController@bar');
+$router->post('/', function (Request $request) {
+    $this->validate(
+        $request,
+        ['password_hashed' => 'required', 'password' => 'required', 'content' => 'required']
+    );
+
+    $verifyPassword = new VerifyPassword();
+    if (!$verifyPassword->execute(
+        $request->input('password'),
+        $request->input('password_hashed'),
+        getenv('PASSWORD_PROTECTION_PASSWORD_SALT')
+    )) {
+        return response()->json(['error' => 'Not authorized.'], 403);
+    }
+    $decryptContent = new DecryptContent();
+    return response()->json([
+        'result' => $decryptContent->execute(
+            getenv('PASSWORD_PROTECTION_CONTENT_KEY'),
+            $request->input('content')
+        )
+    ]);
+});
