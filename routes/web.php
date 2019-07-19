@@ -13,7 +13,7 @@ use App\Actions\{VerifyPassword, DecryptContent};
 |
 */
 
-$router->post('/', function (Request $request) {
+$router->post('/decrypt', function (Request $request) {
     $this->validate(
         $request,
         ['password_hashed' => 'required', 'password' => 'required', 'content' => 'required']
