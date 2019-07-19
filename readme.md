@@ -1,8 +1,10 @@
-# Lumen microservice template
+# Content decryptor microservice
 
-This is a template repo for microservices running on AWS Lambda.
+This microservice can decrypt content, when given three data as input:
 
-Build on [Lumen](https://lumen.laravel.com), deployed using [Serverless framework](http://serverless.com/).
+- `password` (Provided by the user)
+- `password_hashed` (Predetermined and salted)
+- `content` (The encrypted content)
 
 ----------------------------------
 
@@ -16,6 +18,41 @@ $ yarn install
 ```
 
 Create a `.env` file, based on `.env.example`.
+
+### Why?
+
+In a serverless architecture there's no server to password protect content.  
+Using this microservice you can add the encrypted content to the HTML output without anyone being able to read it.  
+A small Javascript-enhanced form allows you to accept the password from a user, and use this microservice to decrypt it.
+
+### Encrypting your content
+
+Use the [Defuse](https://github.com/defuse/php-encryption) library to encrypt content:
+
+```php
+$key = Key::createNewRandomKey();
+$encrypted = Crypto::encrypt($content, $key);
+```
+
+Save the key and share with this microservice:
+
+```php
+$key->saveToAsciiSafeString(); // <-- save this output in your .env 
+```
+
+If the ascii key is added to the `.env` file of this microservice, it will be able to decrypt the content.
+
+### Creating the hashed password
+
+Create a hashed password using `password_hash`, and make sure to include the salt:
+
+```php
+$salt = 'salty_dog';
+$passwordPlain = 'bunnywabbit';
+$passwordHashed = password_hash($passwordPlain . $salt, PASSWORD_BCRYPT);
+```
+
+If the salt is added to the `.env` file of this microservice, it will be able to verify the user-provided password.
 
 ## API
 
@@ -50,6 +87,9 @@ $ npx serverless deploy --stage production --env production
 
 Serverless will print the HTTP endpoints to the screen.
 
-## Project specifics
 
-- To be documented by you.
+## Architecture
+
+Build on [Lumen](https://lumen.laravel.com), deployed using [Serverless framework](http://serverless.com/).
+
+
