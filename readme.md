@@ -90,6 +90,6 @@ Serverless will print the HTTP endpoints to the screen.
 
 ## Architecture
 
-Build on [Lumen](https://lumen.laravel.com), deployed using [Serverless framework](http://serverless.com/).
+Built on [Lumen](https://lumen.laravel.com), deployed using [Serverless framework](http://serverless.com/).
 
 
