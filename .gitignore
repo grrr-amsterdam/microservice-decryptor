@@ -7,3 +7,4 @@ Homestead.yaml
 .env.production
 /node_modules
 /.serverless
+.phpunit.result.cache

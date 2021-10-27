@@ -1,46 +1,55 @@
 service: ContentDecryptor
+configValidationMode: error
+useDotenv: true
 
 provider:
-    name: aws
-    region: ${env:AWS_LAMBDA_REGION}
-    stage: ${opt:stage, 'development'}
-    runtime: provided
-    role: ${env:SERVERLESS_ROLE}
-    timeout: 30
-    profile: ${env:AWS_PROFILE}
-    deploymentBucket:
-        name: ${env:SERVERLESS_DEPLOYMENTS_BUCKET}
-    environment:
-        APP_STORAGE: '/tmp'
+  name: aws
+  region: ${env:AWS_LAMBDA_REGION}
+  stage: ${opt:stage, 'development'}
+  runtime: provided.al2
+  role: ${env:SERVERLESS_ROLE}
+  timeout: 30
+  profile: ${env:AWS_PROFILE}
+  lambdaHashingVersion: 20201221
+  deploymentBucket:
+    name: ${env:SERVERLESS_DEPLOYMENTS_BUCKET}
+  environment:
+    APP_NAME: ${env:APP_NAME}
+    APP_ENV: ${env:APP_ENV}
+    APP_KEY: ${env:APP_KEY}
+    APP_DEBUG: ${env:APP_DEBUG}
+    APP_URL: ${env:APP_URL}
+    APP_TIMEZONE: ${env:APP_TIMEZONE}
+    APP_STORAGE: ${env:APP_STORAGE}
+    LOG_CHANNEL: ${env:LOG_CHANNEL}
+    VIEW_COMPILED_PATH: ${env:VIEW_COMPILED_PATH}
+    SESSION_DRIVER: ${env:SESSION_DRIVER}
+    SENTRY_DSN: ${env:SENTRY_DSN}
+    PASSWORD_PROTECTION_PASSWORD_SALT: ${env:PASSWORD_PROTECTION_PASSWORD_SALT}
+    PASSWORD_PROTECTION_CONTENT_KEY: ${env:PASSWORD_PROTECTION_CONTENT_KEY}
 
 package:
-    exclude:
-        - .env
-        - .env.staging
-        - .env.production
+  exclude:
+    - .env
+    - .env.staging
+    - .env.production
+    - node_modules/**
+    - public/storage
+    - resources/assets/**
+    - storage/**
+    - tests/**
 
 functions:
-    main:
-        handler: public/index.php
-        description: "Process all HTTP requests."
-        layers:
-            - 'arn:aws:lambda:${self:provider.region}:209497400698:layer:php-73-fpm:5'
-        events:
-            - http:
-                path: /{proxy+}
-                method: any
-                cors: true
-    artisan:
-        handler: artisan
-        description: "Process console commands and cron."
-        layers:
-            - 'arn:aws:lambda:${self:provider.region}:209497400698:layer:php-73:7'
-            - 'arn:aws:lambda:${self:provider.region}:209497400698:layer:console:7'
-        #events:
-            #- schedule:
-                #rate: cron(0 0 * * ? *)
-                #input:
-                    #cli: "app:my-console-command"
+  main:
+    handler: public/index.php
+    description: "Process all HTTP requests."
+    layers:
+      - ${bref:layer.php-73-fpm}
+    events:
+      - http:
+          path: /{proxy+}
+          method: any
+          cors: true
 
 plugins:
-  - serverless-dotenv-plugin
+  - ./vendor/bref/bref
