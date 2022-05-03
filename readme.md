@@ -117,21 +117,22 @@ You can use stages to deploy to `development`, `staging` and `production` (defau
 
 ### Prerequisites
 
+The easiest local deployment uses an AWS profile defined using the AWS cli tool.
+
 1. You have the AWS cli tool installed.
 2. You have configured a profile for this service.
 3. You have created `.env.staging` and `.env.production` files, based on `.env.example`.
-4. Make sure the value for `AWS_PROFILE` in the applicable `.env` file corresponds to the profile you created in step 2.
 
 ### Deploy staging
 
 ```bash
-$ npx serverless deploy --stage staging
+$ npx serverless deploy --stage staging --aws-profile my-profile
 ```
 
 ### Deploy production
 
 ```bash
-$ npx serverless deploy --stage production
+$ npx serverless deploy --stage production --aws-profile my-profile
 ```
 
 Serverless will print the HTTP endpoints to the screen.
@@ -139,3 +140,7 @@ Serverless will print the HTTP endpoints to the screen.
 ## Stack
 
 Built on [Lumen](https://lumen.laravel.com), deployed using [Serverless framework](http://serverless.com/).
+
+```
+
+```

@@ -9,7 +9,6 @@ provider:
   runtime: provided.al2
   role: ${env:SERVERLESS_ROLE}
   timeout: 30
-  profile: ${env:AWS_PROFILE}
   lambdaHashingVersion: 20201221
   deploymentBucket:
     name: ${env:SERVERLESS_DEPLOYMENTS_BUCKET}
