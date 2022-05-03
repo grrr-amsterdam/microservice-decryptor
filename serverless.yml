@@ -43,7 +43,7 @@ functions:
     handler: public/index.php
     description: "Process all HTTP requests."
     layers:
-      - ${bref:layer.php-73-fpm}
+      - ${bref:layer.php-80-fpm}
     events:
       - http:
           path: /{proxy+}
