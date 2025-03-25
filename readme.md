@@ -47,16 +47,24 @@ Authentication happens if the user-sent `hashed password` matches `hash (` user-
 
 ---
 
+## Requirements
+
+-   PHP 8.1
+
 ## Installation
 
 Install dependencies:
 
 ```bash
-$ composer install
-$ yarn install
+composer install
+yarn install
 ```
 
 Create a `.env` file, based on `.env.example`.
+
+```bash
+cp .env.example .env
+```
 
 ---
 
