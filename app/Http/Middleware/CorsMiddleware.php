@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use Symfony\Component\Yaml\Yaml;
 use Closure;
 
 class CorsMiddleware
