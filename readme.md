@@ -49,7 +49,7 @@ Authentication happens if the user-sent `hashed password` matches `hash (` user-
 
 ## Requirements
 
--   PHP 8.1
+-   PHP 8.2
 
 ## Installation
 
