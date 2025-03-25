@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a020d6d0a042468db1990a837b367c26",
+    "content-hash": "b80ecabd4b7a16a025dd90201ce84c32",
     "packages": [
         {
             "name": "async-aws/core",
@@ -5952,20 +5952,20 @@
         },
         {
             "name": "symfony/options-resolver",
-            "version": "v6.4.16",
+            "version": "v7.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/options-resolver.git",
-                "reference": "368128ad168f20e22c32159b9f761e456cec0c78"
+                "reference": "7da8fbac9dcfef75ffc212235d76b2754ce0cf50"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/368128ad168f20e22c32159b9f761e456cec0c78",
-                "reference": "368128ad168f20e22c32159b9f761e456cec0c78",
+                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/7da8fbac9dcfef75ffc212235d76b2754ce0cf50",
+                "reference": "7da8fbac9dcfef75ffc212235d76b2754ce0cf50",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.1",
+                "php": ">=8.2",
                 "symfony/deprecation-contracts": "^2.5|^3"
             },
             "type": "library",
@@ -5999,7 +5999,7 @@
                 "options"
             ],
             "support": {
-                "source": "https://github.com/symfony/options-resolver/tree/v6.4.16"
+                "source": "https://github.com/symfony/options-resolver/tree/v7.2.0"
             },
             "funding": [
                 {
@@ -6015,7 +6015,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-11-20T10:57:02+00:00"
+            "time": "2024-11-20T11:17:29+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -9065,7 +9065,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.1"
+        "php": ">=8.2"
     },
     "platform-dev": {},
     "plugin-api-version": "2.6.0"
