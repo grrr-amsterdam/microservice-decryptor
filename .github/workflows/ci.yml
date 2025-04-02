@@ -44,4 +44,34 @@ jobs:
         with:
           name: Test logs
           path: ./storage/logs
-# TO DO: Add Slack Notifications
+  # TO DO: Add Slack Notifications
+
+  notification:
+    name: Slack notification
+    runs-on: ubuntu-22.04
+    if: always()
+    needs: [ci]
+    steps:
+      - name: Send notification
+        run: |
+          # Documentation about this job: https://coda.io/d/_dkXTSr4dR9g/Slack_sufus#_lumnm
+          webhookUrl="${{ secrets.SLACK_WEBHOOK_URL }}"
+          successText=":octocat: Successfully deployed Content decryptor microservice.  :rocket:"
+          failureText=":octocat: Deployment of Content decryptor microservice has failed pitifully. :poop:"
+          cancelledText=":octocat: Deployment of Content decryptor microservice was canceled."
+          status="${{ (contains(needs.*.result, 'cancelled') && 'cancelled') || (contains(needs.*.result, 'failure') && 'failure') || 'success' }}"
+          if [ "$status" = 'success' ]; then
+            color='good'
+            text=$successText
+          elif [ "$status" = 'failure' ]; then
+            color='danger'
+            text=$failureText
+          elif [ "$status" = "cancelled" ]; then
+            color='warning'
+            text=$cancelledText
+          fi
+          echo "{attachments: [{text: \"$text\", color: \"$color\"}]}" | curl \
+            "$webhookUrl" \
+            -X "POST" \
+            --header "Content-Type: application/json" \
+            --data-binary @-
